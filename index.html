@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahnaf | Portfolio</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#6c63ff;
+  --bg:#f8fafc;
+  --text:#0f172a;
+  --card:#ffffff;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  scroll-behavior:smooth;
+}
+
+/* DARK MODE TOGGLE */
+#darkToggle:checked ~ *{
+  --bg:#020617;
+  --text:#e2e8f0;
+  --card:#0f172a;
+}
+
+/* Navbar */
+.navbar{
+  backdrop-filter: blur(10px);
+}
+
+/* Hero */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  background:linear-gradient(120deg,#0f172a,#1e293b);
+  color:white;
+}
+.hero span{color:var(--primary);}
+
+/* Buttons */
+.btn-main{
+  background:var(--primary);
+  border:none;
+  padding:12px 28px;
+  border-radius:30px;
+  transition:.3s;
+  color:white;
+}
+
+/* Hover for all buttons */
+.btn-main:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 20px rgba(0,0,0,.3);
+  color:black !important;
+}
+
+/* Hero button keeps white text */
+.hero-btn:hover{
+  color:white !important;
+}
+
+/* Cards */
+.card{
+  border:none;
+  border-radius:20px;
+  background:var(--card);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+/* Skills */
+.progress{
+  height:10px;
+  border-radius:10px;
+  overflow:hidden;
+}
+.progress-bar{
+  background:var(--primary);
+  animation: load 2s ease forwards;
+}
+@keyframes load{
+  from{width:0}
+}
+
+/* CSS Popup */
+.popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,.7);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+.popup:target{
+  opacity:1;
+  pointer-events:auto;
+}
+.popup-content{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  max-width:500px;
+  margin:10% auto;
+}
+
+/* Dark toggle button */
+.toggle-btn{
+  cursor:pointer;
+  padding:6px 14px;
+  border-radius:20px;
+  background:var(--primary);
+  color:white;
+  font-size:14px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero{text-align:center;}
+}
+</style>
+</head>
+
+<body>
+
+<input type="checkbox" id="darkToggle" hidden>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+<div class="container">
+  <a class="navbar-brand fw-bold" href="#">Ahnaf</a>
+  <div class="ms-auto">
+    <label for="darkToggle" class="toggle-btn">🌙 Mode</label>
+  </div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <h1>Hello, I'm <span>Ahnaf</span></h1>
+      <p class="lead">Creative developer building futuristic web & robotics projects.</p>
+      <!-- HERO BUTTON -->
+      <a href="#projects" class="btn btn-main hero-btn">View Projects</a>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="280">
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-5">
+<div class="container">
+  <h2 class="text-center fw-bold mb-4">About Me</h2>
+  <p class="text-center">
+    I'm a passionate young developer from Bangladesh who loves coding, robotics, and game development.
+    My goal is to build projects that inspire people.
+  </p>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-5 bg-light">
+<div class="container">
+  <h2 class="text-center fw-bold mb-5">Skills</h2>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6>HTML</h6>
+        <div class="progress"><div class="progress-bar" style="width:95%"></div></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6>CSS</h6>
+        <div class="progress"><div class="progress-bar" style="width:85%"></div></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6>Bootstrap</h6>
+        <div class="progress"><div class="progress-bar" style="width:80%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-5">
+<div class="container">
+  <h2 class="text-center fw-bold mb-5">Projects</h2>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <h5>Pathfinding Robot</h5>
+        <p>Smart robot using algorithms.</p>
+        <a href="#popup1" class="btn btn-main">Details</a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <h5>Galaxy Simulation</h5>
+        <p>Interactive space simulation.</p>
+        <a href="#popup2" class="btn btn-main">Details</a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <h5>Portfolio Website</h5>
+        <p>Responsive personal site.</p>
+        <a href="#popup3" class="btn btn-main">Details</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- POPUPS -->
+<div id="popup1" class="popup">
+  <div class="popup-content text-center">
+    <h4>Pathfinding Robot</h4>
+    <p>This robot finds the shortest path using sensors and logic.</p>
+    <a href="#" class="btn btn-main">Close</a>
+  </div>
+</div>
+
+<div id="popup2" class="popup">
+  <div class="popup-content text-center">
+    <h4>Galaxy Simulation</h4>
+    <p>A smooth animated galaxy with warp effects.</p>
+    <a href="#" class="btn btn-main">Close</a>
+  </div>
+</div>
+
+<div id="popup3" class="popup">
+  <div class="popup-content text-center">
+    <h4>Portfolio Website</h4>
+    <p>Built using HTML, CSS & Bootstrap with responsive design.</p>
+    <a href="#" class="btn btn-main">Close</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="py-5 bg-light">
+<div class="container">
+  <h2 class="text-center fw-bold mb-4">Contact</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <input class="form-control mb-3" placeholder="Name">
+      <input class="form-control mb-3" placeholder="Email">
+      <textarea class="form-control mb-3" rows="4" placeholder="Message"></textarea>
+      <button class="btn btn-main w-100">Send</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer class="text-center p-3 bg-dark text-white">
+  © 2026 Ahnaf Abid Islam
+</footer>
+
+</body>
+</html>
