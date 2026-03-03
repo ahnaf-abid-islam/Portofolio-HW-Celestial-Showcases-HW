@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ahnaf | Portfolio</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
@@ -24,31 +21,62 @@ body{
   background:var(--bg);
   color:var(--text);
   scroll-behavior:smooth;
+  transition:0.4s;
 }
 
-/* DARK MODE TOGGLE */
+/* DARK MODE */
 #darkToggle:checked ~ *{
   --bg:#020617;
   --text:#e2e8f0;
   --card:#0f172a;
 }
 
-/* Navbar */
-.navbar{
-  backdrop-filter: blur(10px);
-}
-
-/* Hero */
+/* HERO */
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
-  background:linear-gradient(120deg,#0f172a,#1e293b);
+  background:linear-gradient(-45deg,#0f172a,#1e293b,#312e81,#0f172a);
+  background-size:400% 400%;
+  animation:gradient 12s ease infinite;
   color:white;
 }
+
+@keyframes gradient{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
 .hero span{color:var(--primary);}
 
-/* Buttons */
+/* TYPING EFFECT */
+.typing{
+  overflow:hidden;
+  white-space:nowrap;
+  border-right:3px solid white;
+  width:0;
+  animation:typing 4s steps(40,end) forwards, blink .8s infinite;
+}
+
+@keyframes typing{
+  from{width:0}
+  to{width:100%}
+}
+@keyframes blink{
+  50%{border-color:transparent}
+}
+
+/* FLOAT IMAGE */
+.hero img{
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+
+/* BUTTON */
 .btn-main{
   background:var(--primary);
   border:none;
@@ -57,32 +85,46 @@ body{
   transition:.3s;
   color:white;
 }
-
-/* Hover for all buttons */
 .btn-main:hover{
-  transform:scale(1.05);
-  box-shadow:0 10px 20px rgba(0,0,0,.3);
-  color:black !important;
+  transform:scale(1.08);
+  box-shadow:0 15px 30px rgba(0,0,0,.3);
 }
 
-/* Hero button keeps white text */
-.hero-btn:hover{
-  color:white !important;
-}
-
-/* Cards */
+/* CARD */
 .card{
   border:none;
   border-radius:20px;
   background:var(--card);
-  transition:.3s;
+  transition:.4s;
 }
 .card:hover{
   transform:translateY(-10px);
-  box-shadow:0 15px 40px rgba(0,0,0,.2);
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
 }
 
-/* Skills */
+/* SKILLS TOOLTIP */
+.skill-box{
+  position:relative;
+}
+.skill-box::after{
+  content:attr(data-skill);
+  position:absolute;
+  bottom:120%;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--primary);
+  color:white;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:12px;
+  opacity:0;
+  transition:.3s;
+}
+.skill-box:hover::after{
+  opacity:1;
+}
+
+/* PROGRESS */
 .progress{
   height:10px;
   border-radius:10px;
@@ -90,13 +132,47 @@ body{
 }
 .progress-bar{
   background:var(--primary);
-  animation: load 2s ease forwards;
+  animation:load 2s ease forwards;
 }
 @keyframes load{
   from{width:0}
 }
 
-/* CSS Popup */
+/* PROJECT FILTER */
+input[name="filter"]{display:none;}
+.filter-btn{
+  cursor:pointer;
+  padding:8px 18px;
+  border-radius:20px;
+  background:var(--primary);
+  color:white;
+  margin:5px;
+  display:inline-block;
+  transition:.3s;
+}
+.filter-btn:hover{transform:scale(1.1);}
+
+#robot:checked ~ .projects .web,
+#robot:checked ~ .projects .sim,
+#web:checked ~ .projects .robot,
+#web:checked ~ .projects .sim,
+#sim:checked ~ .projects .robot,
+#sim:checked ~ .projects .web{
+  display:none;
+}
+
+/* COUNTERS */
+.counter{
+  font-size:40px;
+  font-weight:800;
+  animation:count 3s ease-in-out infinite alternate;
+}
+@keyframes count{
+  from{opacity:0.7}
+  to{opacity:1}
+}
+
+/* POPUP */
 .popup{
   position:fixed;
   top:0;left:0;
@@ -104,7 +180,7 @@ body{
   background:rgba(0,0,0,.7);
   opacity:0;
   pointer-events:none;
-  transition:.3s;
+  transition:.4s;
 }
 .popup:target{
   opacity:1;
@@ -118,17 +194,7 @@ body{
   margin:10% auto;
 }
 
-/* Dark toggle button */
-.toggle-btn{
-  cursor:pointer;
-  padding:6px 14px;
-  border-radius:20px;
-  background:var(--primary);
-  color:white;
-  font-size:14px;
-}
-
-/* Responsive */
+/* RESPONSIVE */
 @media(max-width:768px){
   .hero{text-align:center;}
 }
@@ -139,149 +205,141 @@ body{
 
 <input type="checkbox" id="darkToggle" hidden>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
 <div class="container">
   <a class="navbar-brand fw-bold" href="#">Ahnaf</a>
-  <div class="ms-auto">
-    <label for="darkToggle" class="toggle-btn">🌙 Mode</label>
-  </div>
+  <label for="darkToggle" class="btn btn-main btn-sm">🌙</label>
 </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
 <div class="container">
-  <div class="row align-items-center">
-    <div class="col-md-6">
-      <h1>Hello, I'm <span>Ahnaf</span></h1>
-      <p class="lead">Creative developer building futuristic web & robotics projects.</p>
-      <!-- HERO BUTTON -->
-      <a href="#projects" class="btn btn-main hero-btn">View Projects</a>
-    </div>
-    <div class="col-md-6 text-center">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="280">
-    </div>
-  </div>
+<div class="row align-items-center">
+<div class="col-md-6">
+<h1>Hello, I'm <span>Ahnaf</span></h1>
+<p class="typing">Creative Developer | Robotics Enthusiast | Future Engineer</p>
+<a href="#projects" class="btn btn-main mt-3">View Projects</a>
+</div>
+<div class="col-md-6 text-center">
+<img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="280">
+</div>
+</div>
 </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="py-5">
+<!-- COUNTERS -->
+<section class="py-5 text-center">
 <div class="container">
-  <h2 class="text-center fw-bold mb-4">About Me</h2>
-  <p class="text-center">
-    I'm a passionate young developer from Bangladesh who loves coding, robotics, and game development.
-    My goal is to build projects that inspire people.
-  </p>
+<div class="row">
+<div class="col-md-3"><div class="counter">10+</div><p>Projects</p></div>
+<div class="col-md-3"><div class="counter">3+</div><p>Robots Built</p></div>
+<div class="col-md-3"><div class="counter">2+</div><p>Years Coding</p></div>
+<div class="col-md-3"><div class="counter">5+</div><p>Competitions</p></div>
+</div>
 </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="py-5 bg-light">
+<section class="py-5 bg-light">
 <div class="container">
-  <h2 class="text-center fw-bold mb-5">Skills</h2>
-
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card p-3">
-        <h6>HTML</h6>
-        <div class="progress"><div class="progress-bar" style="width:95%"></div></div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card p-3">
-        <h6>CSS</h6>
-        <div class="progress"><div class="progress-bar" style="width:85%"></div></div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card p-3">
-        <h6>Bootstrap</h6>
-        <div class="progress"><div class="progress-bar" style="width:80%"></div></div>
-      </div>
-    </div>
-  </div>
+<h2 class="text-center fw-bold mb-5">Skills</h2>
+<div class="row g-4">
+<div class="col-md-4">
+<div class="card p-3 skill-box" data-skill="Advanced">
+<h6>HTML</h6>
+<div class="progress"><div class="progress-bar" style="width:95%"></div></div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-3 skill-box" data-skill="Proficient">
+<h6>CSS</h6>
+<div class="progress"><div class="progress-bar" style="width:85%"></div></div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-3 skill-box" data-skill="Strong">
+<h6>Bootstrap</h6>
+<div class="progress"><div class="progress-bar" style="width:80%"></div></div>
+</div>
+</div>
+</div>
 </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" class="py-5">
+<!-- PROJECT FILTER -->
+<section id="projects" class="py-5 text-center">
 <div class="container">
-  <h2 class="text-center fw-bold mb-5">Projects</h2>
 
-  <div class="row g-4">
+<h2 class="fw-bold mb-4">Projects</h2>
 
-    <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <h5>Pathfinding Robot</h5>
-        <p>Smart robot using algorithms.</p>
-        <a href="#popup1" class="btn btn-main">Details</a>
-      </div>
-    </div>
+<input type="radio" name="filter" id="all" checked>
+<input type="radio" name="filter" id="robot">
+<input type="radio" name="filter" id="web">
+<input type="radio" name="filter" id="sim">
 
-    <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <h5>Galaxy Simulation</h5>
-        <p>Interactive space simulation.</p>
-        <a href="#popup2" class="btn btn-main">Details</a>
-      </div>
-    </div>
+<label for="all" class="filter-btn">All</label>
+<label for="robot" class="filter-btn">Robotics</label>
+<label for="web" class="filter-btn">Web</label>
+<label for="sim" class="filter-btn">Simulation</label>
 
-    <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <h5>Portfolio Website</h5>
-        <p>Responsive personal site.</p>
-        <a href="#popup3" class="btn btn-main">Details</a>
-      </div>
-    </div>
+<div class="row g-4 mt-4 projects">
 
-  </div>
+<div class="col-md-4 robot">
+<div class="card p-3">
+<h5>Pathfinding Robot</h5>
+<p>Smart algorithm robot.</p>
+<a href="#popup1" class="btn btn-main">Details</a>
+</div>
+</div>
+
+<div class="col-md-4 web">
+<div class="card p-3">
+<h5>Portfolio Website</h5>
+<p>Responsive site.</p>
+<a href="#popup2" class="btn btn-main">Details</a>
+</div>
+</div>
+
+<div class="col-md-4 sim">
+<div class="card p-3">
+<h5>Galaxy Simulation</h5>
+<p>Interactive space project.</p>
+<a href="#popup3" class="btn btn-main">Details</a>
+</div>
+</div>
+
+</div>
 </div>
 </section>
 
 <!-- POPUPS -->
 <div id="popup1" class="popup">
-  <div class="popup-content text-center">
-    <h4>Pathfinding Robot</h4>
-    <p>This robot finds the shortest path using sensors and logic.</p>
-    <a href="#" class="btn btn-main">Close</a>
-  </div>
+<div class="popup-content text-center">
+<h4>Pathfinding Robot</h4>
+<p>Uses logic & sensors to navigate shortest path.</p>
+<a href="#" class="btn btn-main">Close</a>
+</div>
 </div>
 
 <div id="popup2" class="popup">
-  <div class="popup-content text-center">
-    <h4>Galaxy Simulation</h4>
-    <p>A smooth animated galaxy with warp effects.</p>
-    <a href="#" class="btn btn-main">Close</a>
-  </div>
+<div class="popup-content text-center">
+<h4>Portfolio Website</h4>
+<p>Modern responsive personal website.</p>
+<a href="#" class="btn btn-main">Close</a>
+</div>
 </div>
 
 <div id="popup3" class="popup">
-  <div class="popup-content text-center">
-    <h4>Portfolio Website</h4>
-    <p>Built using HTML, CSS & Bootstrap with responsive design.</p>
-    <a href="#" class="btn btn-main">Close</a>
-  </div>
+<div class="popup-content text-center">
+<h4>Galaxy Simulation</h4>
+<p>Smooth animated galaxy with warp effect.</p>
+<a href="#" class="btn btn-main">Close</a>
 </div>
-
-<!-- CONTACT -->
-<section id="contact" class="py-5 bg-light">
-<div class="container">
-  <h2 class="text-center fw-bold mb-4">Contact</h2>
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <input class="form-control mb-3" placeholder="Name">
-      <input class="form-control mb-3" placeholder="Email">
-      <textarea class="form-control mb-3" rows="4" placeholder="Message"></textarea>
-      <button class="btn btn-main w-100">Send</button>
-    </div>
-  </div>
 </div>
-</section>
 
 <footer class="text-center p-3 bg-dark text-white">
-  © 2026 Ahnaf Abid Islam
+© 2026 Ahnaf Abid Islam
 </footer>
 
 </body>
